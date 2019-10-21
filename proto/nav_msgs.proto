@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package nav_msgs;
+// import "proto/vector.proto";
+import "vector.proto";
+
+message pose_st {
+    standard_msgs.vector_t position = 1;
+    standard_msgs.quaternion_t orientation = 2;
+    double timestamp = 3;
+}

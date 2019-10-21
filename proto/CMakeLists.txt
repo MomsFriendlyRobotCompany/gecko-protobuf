@@ -46,4 +46,6 @@ target_link_libraries(
     # ${ZMQ_LIBRARIES}
 )
 
-add_custom_target(myTarget ALL DEPENDS ${PY_SOURCES})
+# add_custom_target(myTarget ALL DEPENDS ${PY_SOURCES})
+# execute_process(COMMAND touch "__init__.py")
+# execute_process(COMMAND protoc "-I=../../proto --python_out=../../python ../../proto/*.proto")

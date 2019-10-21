@@ -1,14 +1,25 @@
 syntax = "proto3";
 
-package msg;
+package sensor_msgs;
 // option optimize_for = LITE_RUNTIME;
 
-import "google/protobuf/timestamp.proto";
+// import "google/protobuf/timestamp.proto";
 import "vector.proto";
 
-message IMU {
-    Vector accel = 1;
-    Vector gyro = 2;
-    Vector mag = 3;
-    google.protobuf.Timestamp timestamp = 4;
+message imu_st {
+    standard_msgs.vector_t accel = 1;
+    standard_msgs.vector_t gyro = 2;
+    standard_msgs.vector_t mag = 3;
+    // google.protobuf.Timestamp timestamp = 4;
+    double timestamp = 4;
+}
+
+message image_st {
+    uint32 width = 1;
+    uint32 height = 2;
+    uint32 depth = 3;
+    bool compressed = 4;
+    string encoding = 5;
+    bytes image_data = 6;
+    double timestamp = 7;
 }
