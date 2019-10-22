@@ -28,8 +28,45 @@ link_directories(/usr/local/lib)
 # Load in pkg-config support --------------------------------------
 find_package(PkgConfig)
 
-add_subdirectory(proto)
+# add_subdirectory(proto)
+find_package(Protobuf REQUIRED)
+if ( Protobuf_FOUND )
+    # include_directories(${Protobuf_INCLUDE_DIRS})
+    # include_directories(${CMAKE_CURRENT_BINARY_DIR})
+    message( STATUS "Protobuf version : ${Protobuf_VERSION}" )
+    message( STATUS "Protobuf include path : ${Protobuf_INCLUDE_DIRS}" )
+    message( STATUS "Protobuf libraries : ${Protobuf_LIBRARIES}" )
+    message( STATUS "Protobuf compiler libraries : ${Protobuf_PROTOC_LIBRARIES}")
+    message( STATUS "Protobuf lite libraries : ${Protobuf_LITE_LIBRARIES}")
+
+    set(MSG_PROTOS
+        proto/standard_msgs.proto
+        proto/nav_msgs.proto
+        proto/sensor_msgs.proto
+    )
+
+    # protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${MSG_PROTOS})
+
+    # add_library(proto SHARED ${PROTO_SRCS} ${PROTO_HDRS})
+    file(GLOB PROTO_SRCS build/proto/*.pb.cc)
+    file(GLOB PROTO_HDRS build/proto/*.pb.h)
+    add_library(proto SHARED ${PROTO_SRCS} ${PROTO_HDRS})
+    target_include_directories(proto PUBLIC ${CMAKE_CURRENT_BINARY_DIR} ${Protobuf_INCLUDE_DIRS})
+
+    target_link_libraries(
+        proto
+        ${Protobuf_LIBRARIES}
+    )
+
+else()
+    message( WARNING "Protobuf package not found -> specify search path via PROTOBUF_ROOT variable")
+endif()
+
 add_subdirectory(src)
+
+include_directories(/usr/local/include)
+link_directories(/src/Download)
+
 # message(STATUS ">>> ${PROTO_SRCS} ${PROTO_HDRS} ${CMAKE_BINARY_DIR} ${PROTOBUF_INCLUDE_DIR}")
 # message(STATUS ">>> ${Protobuf_LIBRARIES}")
 #

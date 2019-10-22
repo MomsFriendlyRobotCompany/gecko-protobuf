@@ -2,10 +2,37 @@ syntax = "proto3";
 
 package nav_msgs;
 // import "proto/vector.proto";
-import "vector.proto";
+import "proto/standard_msgs.proto";
 
-message pose_st {
-    standard_msgs.vector_t position = 1;
-    standard_msgs.quaternion_t orientation = 2;
-    double timestamp = 3;
+// message pose_st {
+//     standard_msgs.Vector position = 1;
+//     standard_msgs.Quaternion orientation = 2;
+//     double timestamp = 3;
+// }
+
+message Pose {
+    double timestamp = 1;  // unix time
+    standard_msgs.Vector position = 2;
+    standard_msgs.Quaternion orientation = 3;
+}
+
+message Odometry {
+    double timestamp = 1;  // unix time
+    Pose pose = 2;
+    standard_msgs.Twist twist = 3;
+    string frame_id = 4;
+}
+
+message OccupancyGrid {
+    double timestamp = 1;  // unix time
+    float resolution = 2;  // m/cell
+    uint32 width = 3;      // cells
+    uint32 height = 4;     // cells
+    Pose origin = 5;  // [m,m,rad] real-world
+    bytes data = 6;  // occupancy [0,100], unknown -1
+}
+
+message Path {
+    double timestamp = 1;  // unix time
+    repeated Pose poses = 2;
 }

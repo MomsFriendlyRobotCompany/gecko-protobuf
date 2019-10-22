@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package standard_msgs;
+
+message Vector {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}
+
+message Quaternion {
+    double w = 1;
+    double x = 2;
+    double y = 3;
+    double z = 4;
+}
+
+message Twist {
+    Vector linear = 1;
+    Vector angular = 2;
+}
+
+message Wrench {
+    Vector force = 1;
+    Vector torque = 2;
+}
+
+message Transform {
+    Vector translation = 1;
+    Quaternion rotation = 2;
+}
+
+// message Pose {
+//     Vector position = 1;
+//     Quaternion orientation = 2;
+// }
