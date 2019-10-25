@@ -45,11 +45,11 @@ if ( Protobuf_FOUND )
         proto/sensor_msgs.proto
     )
 
-    # protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${MSG_PROTOS})
+    protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${MSG_PROTOS})
 
     # add_library(proto SHARED ${PROTO_SRCS} ${PROTO_HDRS})
-    file(GLOB PROTO_SRCS build/proto/*.pb.cc)
-    file(GLOB PROTO_HDRS build/proto/*.pb.h)
+    # file(GLOB PROTO_SRCS build/proto/*.pb.cc)
+    # file(GLOB PROTO_HDRS build/proto/*.pb.h)
     add_library(proto SHARED ${PROTO_SRCS} ${PROTO_HDRS})
     target_include_directories(proto PUBLIC ${CMAKE_CURRENT_BINARY_DIR} ${Protobuf_INCLUDE_DIRS})
 
