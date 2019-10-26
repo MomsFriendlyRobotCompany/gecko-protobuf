@@ -17,25 +17,6 @@ live in the same namespace. Some of the default messages available are:
 
 This is not an all inclusive list.
 
-## Installation
-
-- python:
-    - `pip install gecko-protobuf`
-- cpp
-    - clone repo
-    - `mkdir build`
-    - `cd build`
-    - `cmake ..`
-    - `make install`
-
-## Examples
-
-Simple pub/sub example. This assumes you have `gecko` installed to `/opt/gecko`
-
-- `mkdir build`
-- `cmake ..`
-- `make`
-
 # Protobuf References
 
 https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html
