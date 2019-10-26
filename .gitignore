@@ -5,3 +5,6 @@ old
 __pycache__
 *.pyc
 msgs.pb.*
+msgs_pb2.py
+*.egg-info
+dist
