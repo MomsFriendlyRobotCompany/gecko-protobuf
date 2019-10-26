@@ -129,6 +129,7 @@ message LaserScan {
     double range_max = 4;
     repeated double range = 5 [packed=true];
     repeated double intensity = 6 [packed=true];
+    repeated LaserPt points = 7 [packet=true];
 }
 
 message NavSatFix {
