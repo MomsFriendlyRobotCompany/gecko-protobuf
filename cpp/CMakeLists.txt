@@ -57,10 +57,12 @@ if ( Protobuf_FOUND )
             ${CMAKE_CURRENT_BINARY_DIR}
             ${Protobuf_INCLUDE_DIRS}
             ${CWD}
+            /opt/gecko/include
     )
     target_link_libraries(${LIBRARY_NAME}
         PUBLIC
             ${Protobuf_LIBRARIES}
+            /opt/gecko/lib
     )
 
     # gTest ------------------------------------------------------
