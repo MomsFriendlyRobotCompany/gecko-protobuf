@@ -91,6 +91,10 @@ if ( Protobuf_FOUND )
         LIBRARY DESTINATION ${GECKO_LIB}  # shared libraries
         RUNTIME DESTINATION ${GECKO_BIN}  # executables
     )
+    install(
+        FILES cmake/gecko-protobuf.cmake
+        DESTINATION ${GECKO_CMAKE}/gecko
+    )
 
 else()
     message( FATAL_ERROR "Protobuf package not found -> set PROTOBUF_ROOT variable")
