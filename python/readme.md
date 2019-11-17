@@ -6,21 +6,6 @@
 [![image](https://img.shields.io/pypi/format/pygecko.svg)](https://pypi.python.org/pypi/pygecko)
 [![Build Status](https://travis-ci.org/gecko-robotics/pygecko.svg?branch=master)](https://travis-ci.org/gecko-robotics/pygecko)
 
-A lot good ideas were pulled from [ROS common messages](http://wiki.ros.org/common_msgs?distro=melodic). In order to simplify thinigs, all messages
-live in the same namespace. Some of the default messages available are:
-
-- Quaternion
-- Vector
-- Twist
-- Wrench
-- Transform
-- Imu
-- LidarScan
-- Image
-- CameraInfo
-- NavSatFix
-- Pose
-
 ## Install
 
 - From pypi: `pip install pygeckopb`
