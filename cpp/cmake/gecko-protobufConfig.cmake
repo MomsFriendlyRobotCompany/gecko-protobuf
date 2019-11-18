@@ -1,29 +1,19 @@
-# include(/opt/gecko/gecko/lib/cmake/gecko/gecko.cmake)
+include(/opt/gecko/gecko/lib/cmake/gecko/gecko.cmake)
+include(build.cmake)
 
-# find_package(PkgConfig)
+set(gecko_FOUND 1)
+set(gecko_VERSION "0.0.0")
+set(gecko_protobuf_INCLUDE_DIRS /opt/gecko/gecko/include ${gecko_INCLUDE_DIRS})
 
-find_package(Protobuf 3 REQUIRED
-    PATHS /opt/gecko/lib/cmake
-)
-if ( Protobuf_FOUND )
-    message( STATUS "Protobuf version : ${Protobuf_VERSION}" )
-
-    set(Protobuf_INCLUDE_DIRS /opt/gecko/include)
-    set(Protobuf_LIBRARIES /opt/gecko/lib/libprotobuf.so;-lpthread)
-    set(Protobuf_LITE_LIBRARIES /opt/gecko/lib/libprotobuf-lite.so;-lpthread)
-    set(Protobuf_PROTOC_LIBRARY /opt/gecko/lib/libprotoc.so;-lpthread)
-
-    list(APPEND GECKO_LIBS
-        /opt/gecko/lib/libgecko-protobuf.so
-        ${Protobuf_LIBRARIES}
-    )
-
-    # list(APPEND GECKO_INCLUDES
-    #     /opt/gecko/include
-    #     /opt/gecko/gecko/include
-    #     /opt/gecko/gecko/include/gecko/marko
-    #     ${libzmq_INCLUDE_DIRS}
-    # )
-else()
-    message( WARNING "Protobuf package not found -> specify PROTOBUF_ROOT variable")
+if(APPLE)
+    set(LIB libgecko-protobuf.dylib)
+elseif(UNIX AND NOT APPLE)
+    set(LIB libgecko-protobuf.so)
 endif()
+
+list(APPEND gecko_protobuf_LIBRARIES
+    /opt/gecko/gecko/lib/${LIB}
+    ${gecko_LIBRARIES}
+    ${Protobuf_LIBRARIES}
+    ${Protobuf_PROTOC_LIBRARY}
+)

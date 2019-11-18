@@ -42,9 +42,15 @@ if ( Protobuf_FOUND )
 
     # so the original cmake for protobuf is shit ... so I will fix it
     set(Protobuf_INCLUDE_DIRS /opt/gecko/include)
-    set(Protobuf_LIBRARIES /opt/gecko/lib/libprotobuf.so;-lpthread)
-    set(Protobuf_LITE_LIBRARIES /opt/gecko/lib/libprotobuf-lite.so;-lpthread)
-    set(Protobuf_PROTOC_LIBRARY /opt/gecko/lib/libprotoc.so;-lpthread)
+    if(APPLE)
+        set(Protobuf_LIBRARIES /opt/gecko/lib/libprotobuf.dylib;-lpthread)
+        set(Protobuf_LITE_LIBRARIES /opt/gecko/lib/libprotobuf-lite.dylib;-lpthread)
+        set(Protobuf_PROTOC_LIBRARY /opt/gecko/lib/libprotoc.dylib;-lpthread)
+    elseif(UNIX AND NOT APPLE)
+        set(Protobuf_LIBRARIES /opt/gecko/lib/libprotobuf.so;-lpthread)
+        set(Protobuf_LITE_LIBRARIES /opt/gecko/lib/libprotobuf-lite.so;-lpthread)
+        set(Protobuf_PROTOC_LIBRARY /opt/gecko/lib/libprotoc.so;-lpthread)
+    endif()
 
     # foreach(VAL
     #     PROTOBUF_SRC_ROOT_FOLDER
