@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm -fr tmp
 mkdir -p tmp
 cd tmp
 
@@ -15,20 +16,20 @@ get_latest_release() {
 # protobuf --------------------------------------------------------------
 USER_REPO="protocolbuffers/protobuf"
 VER=`get_latest_release ${USER_REPO}`
-VERSION=${VER//v}
-HTTP="https://github.com/${USER_REPO}/releases/download/${VER}/protobuf-cpp-${VERSION}.tar.gz"
-echo "latest is ${VERSION}"
-echo "path is ${HTTP}"
+echo "latest is ${VER}"
 
-wget ${HTTP}
-tar -zxvf protobuf-cpp-${VERSION}.tar.gz
-mkdir -p protobuf-${VERSION}/build
-cd protobuf-${VERSION}/build
-# ./configure --prefix=${DIR} --with-cmake
-cmake -DCMAKE_INSTALL_PREFIX=${DIR} -DBUILD_SHARED_LIBS=ON -Dprotobuf_BUILD_TESTS=OFF ../cmake
-make
-make install
+git clone -b ${VER} https://github.com/protocolbuffers/protobuf.git
+mkdir -p protobuf/buildpb
+cd protobuf/buildpb
+git submodule update --init --recursive
+cmake -DCMAKE_INSTALL_PREFIX=${DIR} \
+    -DBUILD_SHARED_LIBS=OFF \
+    -Dprotobuf_BUILD_TESTS=OFF \
+    -Dprotobuf_BUILD_EXAMPLES=OFF \
+    -Dprotobuf_WITH_ZLIB=ON \
+    ../cmake
+# make
+# make install
 cd ../..
 
 cd ..
-# rm -fr tmp

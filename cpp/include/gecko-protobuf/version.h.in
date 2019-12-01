@@ -1,0 +1,8 @@
+#pragma once
+
+#include <string_view>  // C++17
+
+inline constexpr int GECKO_PROTOBUF_VERSION_MAJOR = @PROJECT_VERSION_MAJOR@;
+inline constexpr int GECKO_PROTOBUF_VERSION_MINOR = @PROJECT_VERSION_MINOR@;
+inline constexpr int GECKO_PROTOBUF_VERSION_PATCH = @PROJECT_VERSION_PATCH@;
+inline constexpr std::string_view GECKO_PROTOBUF_VERSION{"@PROJECT_VERSION@"};

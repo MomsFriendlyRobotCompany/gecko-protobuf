@@ -8,7 +8,7 @@ from build_utils import SetGitTag
 from build_utils import get_pkg_version
 
 import os
-cmd = "protoc --proto_path=../cpp/gecko/protobuf  --python_out=pygeckopb ../cpp/gecko/protobuf/msgs.proto"
+cmd = "/opt/gecko/binprotoc --proto_path=../cpp/gecko/protobuf  --python_out=pygeckopb ../cpp/gecko/protobuf/msgs.proto"
 os.system(cmd)
 
 VERSION = get_pkg_version('pygeckopb/__init__.py')
@@ -25,7 +25,7 @@ setup(
     author_email='walchko@users.noreply.github.com',
     name=PACKAGE_NAME,
     version=VERSION,
-    description='pygecko messaging with protobuf',
+    description='pygecko messaging using protobuf as the serializatin/deserialization library',
     long_description=open('readme.md').read(),
     long_description_content_type='text/markdown',
     url='http://github.com/gecko-robotics/{}'.format(PACKAGE_NAME),
@@ -34,7 +34,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        # 'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries',
@@ -42,7 +41,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Application Frameworks'
     ],
     license='MIT',
-    keywords=['ros', 'protobuf', 'protocol buffer'],
+    keywords=['ros', 'protobuf', 'protocol buffer', 'gecko', 'robotics', 'robots'],
     packages=find_packages('.'),
     install_requires=['build_utils'],
     cmdclass={

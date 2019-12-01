@@ -1,22 +1,19 @@
-#include <iostream>
-#include <stdio.h>
+/**************************************************\
+* The MIT License (MIT)
+* Copyright (c) 2014 Kevin Walchko
+* see LICENSE for full details
+\**************************************************/
 
+#include <iostream>
 #include <gecko/gecko.hpp>
-// #include <msgs.pb.h>
-#include <gecko/protobuf/helper_pb.h>
+#include <gecko-protobuf/gecko_pb.h>
+#include <vector>
 
 
 using namespace std;
 using namespace gecko;
 using namespace geckopb;
 
-// template <class MSG>
-// zmq::message_t protobufPack(MSG& m){
-//     string s;
-//     m.SerializeToString(&s);
-//     zmq::message_t msg(static_cast<void*>(s.data()), s.size());
-//     return std::move(msg);
-// }
 
 int main(void){
     GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -34,10 +31,6 @@ int main(void){
             v.set_y(-0.00001);
             v.set_z(1000000.0);
 
-            // string s;
-            // v.SerializeToString(&s);
-            // zmq::message_t msg(static_cast<void*>(s.data()), s.size());
-
             zmq::message_t msg = protobufPack<Vector>(v);
 
             p.publish(msg);
@@ -51,7 +44,7 @@ int main(void){
         // exit(1);
     }
 
-    printf(">> pub bye ...\n");
+    cout << ">> pub bye ...\n" << endl;
 
     google::protobuf::ShutdownProtobufLibrary();
     return 0;

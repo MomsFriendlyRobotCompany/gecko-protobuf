@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10.0)
-project(gecko-protobuf)
+project(gecko-protobuf-ex)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -20,67 +20,43 @@ message(STATUS " ${OSN}: ${OS_VERSION}")
 message(STATUS " ${PROC}")
 message(STATUS "-------------------------------------")
 
-include(../cmake/gecko-protobuf.cmake)
+# Allow over ride of Gecko Version ... can't use option because it is only
+# for bools and not strings
+if(NOT GECKO_VERSION)
+    set(GECKO_VERSION "gecko")
+endif()
 
-# find_package(PkgConfig)
-#
-# find_package(Protobuf 3 REQUIRED)
-# if ( Protobuf_FOUND )
-#     message( STATUS "Protobuf version : ${Protobuf_VERSION}" )
-#     list(APPEND GECKO_LIBS
-#         proto
-#         ${Protobuf_LIBRARIES}
-#     )
-#
-#     # list(APPEND GECKO_INCLUDES
-#     #     /opt/gecko/include
-#     #     /opt/gecko/gecko/include
-#     #     /opt/gecko/gecko/include/gecko/marko
-#     #     ${libzmq_INCLUDE_DIRS}
-#     # )
-# else()
-#     message( WARNING "Protobuf package not found -> specify PROTOBUF_ROOT variable")
-# endif()
+# include(../cmake/gecko-protobufConfig.cmake)
+find_package(gecko-protobuf REQUIRED
+    PATHS /opt/gecko/${GECKO_VERSION}/modules/gecko-protobuf/lib/cmake
+    NO_DEFAULT_PATH
+)
 
-# pkg_check_modules(libzmq REQUIRED libzmq)
-# if(libzmq_FOUND)
-#     message(STATUS ">> ZeroMQ found: ${libzmq_VERSION}")
-# else()
-#     message(WARNING "*** Could not find ZeroMQ ***")
-# endif()
-#
-# find_package(Threads REQUIRED)
-# if(Threads_FOUND)
-#     message(STATUS ">> Threads found")
-#     if(CMAKE_USE_PTHREADS_INIT)
-#         message(STATUS " -> Using pthreads")
-#     endif()
-#     list(APPEND ALL_LIBS ${CMAKE_THREAD_LIBS_INIT})
-# else()
-#     message(WARNING "*** Could not find Threads ***")
-# endif()
-#
-# list(APPEND GECKO_LIBS
-#     proto
-#     gecko
-#     marko
-#     ${libzmq_LIBRARIES}
-#     ${CMAKE_THREAD_LIBS_INIT}
-#     ${Protobuf_LIBRARIES}
-# )
-#
-# list(APPEND GECKO_INCLUDES
-#     /opt/gecko/include
-#     /opt/gecko/gecko/include
-#     /opt/gecko/gecko/include/gecko/marko
-#     ${libzmq_INCLUDE_DIRS}
-# )
+# include_directories(${GECKO_INCLUDES})
+# link_directories(/opt/gecko/lib /opt/gecko/gecko/lib)
 
-include_directories(${GECKO_INCLUDES})
-link_directories(/opt/gecko/lib /opt/gecko/gecko/lib)
+message(STATUS "gecko-protobuf_LIBRARIES: ${gecko-protobuf_LIBRARIES}")
+message(STATUS "gecko-protobuf_INCLUDE_DIRS: ${gecko-protobuf_INCLUDE_DIRS}")
+message(STATUS "ZeroMQ_LIBRARY: ${ZeroMQ_LIBRARY}")
 
 add_executable(pub_pb simple/pub.cpp)
-target_link_libraries(pub_pb ${GECKO_LIBS})
+target_link_libraries(pub_pb
+    PUBLIC
+        ${gecko-protobuf_LIBRARIES}
+        # ${ZeroMQ_LIBRARY}  # FIXME
+)
+target_include_directories(pub_pb
+    PUBLIC
+        ${gecko-protobuf_INCLUDE_DIRS}
+)
 
 add_executable(sub_pb simple/sub.cpp)
-target_link_libraries(sub_pb ${GECKO_LIBS})
+target_link_libraries(sub_pb
+    PUBLIC
+        ${gecko-protobuf_LIBRARIES}
+        ${ZeroMQ_LIBRARY}  # FIXME
+)
+target_include_directories(sub_pb
+    PUBLIC
+        ${gecko-protobuf_INCLUDE_DIRS}
+)
