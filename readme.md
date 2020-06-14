@@ -19,8 +19,9 @@ This is not an all inclusive list.
 
 # Protobuf References
 
-https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html
-https://blog.conan.io/2019/08/27/Creating-small-Linux-images-with-Buildroot.html
+- Github: [protobuf](https://github.com/protocolbuffers/protobuf)
+- [Serializing your data with Protobuf](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html)
+- [Creating small Linux images with Buildroot](https://blog.conan.io/2019/08/27/Creating-small-Linux-images-with-Buildroot.html)
 
 # MIT License
 
